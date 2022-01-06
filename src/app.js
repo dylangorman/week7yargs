@@ -1,6 +1,11 @@
 const yargs = require("yargs");
 const fs = require("fs");
-const { addMovie, listMovies, deleteMovie } = require("./utils/index");
+const {
+  addMovie,
+  listMovies,
+  updateMovie,
+  deleteMovie,
+} = require("./utils/index");
 const connection = require("./db/connection");
 const command = process.argv[2];
 const app = async (args) => {
