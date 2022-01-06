@@ -1,9 +1,9 @@
 const yargs = require("yargs");
 const {
-  addMovie,
-  listMovies,
-  updateMovie,
-  deleteMovie,
+  addMovie, //CREATE
+  listMovies, //READ
+  updateMovie, //UPDATE
+  deleteMovie, //DELETE
 } = require("./utils/index");
 const fs = require("fs");
 const app = () => {
@@ -21,11 +21,6 @@ const app = () => {
           title: yargs.argv.title,
           actor: yargs.argv.actor,
         });
-      } else if (process.argv[2] === "delete") {
-        deleteMovie(movieArray, {
-          title: yargs.argv.title,
-          actor: yargs.argv.actor,
-        });
       } else if (process.argv[2] === "list") {
         listMovies();
       } else if (process.argv[2] === "update") {
@@ -34,6 +29,11 @@ const app = () => {
           { title: yargs.argv.title, actor: yargs.argv.actor },
           { title: yargs.argv.newTitle, actor: yargs.argv.newActor }
         );
+      } else if (process.argv[2] === "delete") {
+        deleteMovie(movieArray, {
+          title: yargs.argv.title,
+          actor: yargs.argv.actor,
+        });
       } else {
         console.log("Input unknown, please try again!");
       }

@@ -12,21 +12,13 @@ const addMovie = (movieArray, movieObj) => {
     console.log(error);
   }
 };
-const deleteMovie = (movieArray, filterObj) => {
+const listMovies = () => {
   try {
-    let newArray = movieArray.filter(
-      (movie) => movie.title !== filterObj.title
-    );
-    const stringyObj = JSON.stringify(newArray);
-    fs.writeFileSync("./storage.json", stringyObj);
-    console.log(
-      "Thank you for your input, this data has now been removed from the list!"
-    );
+    console.log(JSON.parse(fs.readFileSync("./storage.json")));
   } catch (error) {
     console.log(error);
   }
 };
-
 const updateMovie = (movieArray, filterObj, newMovie) => {
   try {
     let newArray = movieArray;
@@ -44,17 +36,23 @@ const updateMovie = (movieArray, filterObj, newMovie) => {
     console.log(error);
   }
 };
-const listMovies = () => {
+const deleteMovie = (movieArray, filterObj) => {
   try {
-    console.log(JSON.parse(fs.readFileSync("./storage.json")));
+    let newArray = movieArray.filter(
+      (movie) => movie.title !== filterObj.title
+    );
+    const stringyObj = JSON.stringify(newArray);
+    fs.writeFileSync("./storage.json", stringyObj);
+    console.log(
+      "Thank you for your input, this data has now been removed from the list!"
+    );
   } catch (error) {
     console.log(error);
   }
 };
-
 module.exports = {
-  addMovie,
-  deleteMovie,
-  listMovies,
-  updateMovie,
+  addMovie, //CREATE
+  listMovies, //READ
+  updateMovie, //UPDATE
+  deleteMovie, //DELETE
 };
