@@ -2,7 +2,7 @@ const yargs = require("yargs");
 const {
   addMovie,
   listMovies,
-  // updateMovie,
+  updateMovie,
   deleteMovie,
 } = require("./utils/index");
 const fs = require("fs");
@@ -28,9 +28,12 @@ const app = () => {
         });
       } else if (process.argv[2] === "list") {
         listMovies();
-        // } else if (process.argv[2] === "update") {
-        //   updateMovie(yargs.argv.title, yargs.argv.actor);
-        // }
+      } else if (process.argv[2] === "update") {
+        updateMovie(
+          movieArray,
+          { title: yargs.argv.title, actor: yargs.argv.actor },
+          { title: yargs.argv.newTitle, actor: yargs.argv.newActor }
+        );
       } else {
         console.log("Input unknown, please try again!");
       }

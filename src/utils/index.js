@@ -12,19 +12,38 @@ const addMovie = (movieArray, movieObj) => {
     console.log(error);
   }
 };
-const deleteMovie = (movieArray, movieObj) => {
+const deleteMovie = (movieArray, filterObj) => {
   try {
-    movieArray.splice(movieObj);
+    let newArray = movieArray.filter(
+      (movie) => movie.title !== filterObj.title
+    );
+    const stringyObj = JSON.stringify(newArray);
+    fs.writeFileSync("./storage.json", stringyObj);
     console.log(
       "Thank you for your input, this data has now been removed from the list!"
     );
-    const stringyObj = JSON.stringify(movieArray);
-    fs.writeFileSync("./storage.json", stringyObj);
   } catch (error) {
     console.log(error);
   }
 };
 
+const updateMovie = (movieArray, filterObj, newMovie) => {
+  try {
+    let newArray = movieArray;
+    for (movie in newArray) {
+      if (newArray[movie].title === filterObj.title) {
+        newArray[movie] = newMovie;
+        const stringyObj = JSON.stringify(newArray);
+        fs.writeFileSync("./storage.json", stringyObj);
+        break;
+      } else {
+        console.log("I don't understand");
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 const listMovies = () => {
   try {
     console.log(JSON.parse(fs.readFileSync("./storage.json")));
@@ -37,26 +56,5 @@ module.exports = {
   addMovie,
   deleteMovie,
   listMovies,
-  // updateMovie,
+  updateMovie,
 };
-
-// UPDATE MOVIE SYNTAX, HOW TO IMPLEMMENT?
-// // const updateMovie = (title, actor) => {
-// //   try {
-// //     const movieArr = JSON.parse(fs.readFileSync("./storage.json"));
-// //     const movieObj = movieArr.find((movieArr) => movieArr.title === title);
-// //     movieObj.actor = actor;
-
-// //     const stringObj = JSON.stringify(movieArr);
-// //     fs.writeFileSync("./storage.json", stringObj);
-// //   } catch (error) {
-// //     // ENOENT
-// //     if (error.code === "ENOENT") {
-// //       displayInfo("Movie database was not found.");
-// //     } else {
-// //       displayInfo(
-// //         "Movie was not found in the database. No update has been made."
-// //       );
-//     }
-//   }
-// };
