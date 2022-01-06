@@ -11,30 +11,17 @@ const addMovie = async (collection, movieObj) => {
 const listMovies = async (collection) => {
   try {
     const movieArray = await collection.find({}).toArray();
-    if (movieArray.length >= 1) {
-      console.log(movieArray);
-    } else "There are no movies to display.";
   } catch (error) {
     console.log(error);
   }
 };
-// const updateMovie = (movieArray, filterObj, newMovie) => {
-//   try {
-//     let newArray = movieArray;
-//     for (movie in newArray) {
-//       if (newArray[movie].title === filterObj.title) {
-//         newArray[movie] = newMovie;
-//         const stringyObj = JSON.stringify(newArray);
-//         fs.writeFileSync("./storage.json", stringyObj);
-//         break;
-//       } else {
-//         console.log("I don't understand");
-//       }
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+const updateMovie = async (collection, updateObj) => {
+  await collection.updateOne(
+    { title: updateObj.title },
+    { Sset: { title: updateObj.updateValue } }
+  );
+};
+
 // const deleteMovie = (movieArray, filterObj) => {
 //   try {
 //     let newArray = movieArray.filter(
@@ -53,6 +40,6 @@ const listMovies = async (collection) => {
 module.exports = {
   addMovie,
   listMovies,
-  // updateMovie,
+  updateMovie,
   // deleteMovie,
 };
