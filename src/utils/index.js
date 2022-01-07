@@ -3,7 +3,7 @@ const fs = require("fs");
 const addMovie = async (collection, movieObj) => {
   try {
     await collection.insertOne(movieObj);
-    console.log(`Successfully added ${movieObj}.title}.`);
+    console.log(`Successfully added ${movieObj.title}.`);
   } catch (error) {
     console.log(error);
   }

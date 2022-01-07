@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^10.0.0",
-    "mongodb": "^4.2.2",
+    "mongodb": "^4.3.0",
     "yargs": "^17.3.1"
   }
 }
