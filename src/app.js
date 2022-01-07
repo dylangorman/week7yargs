@@ -16,7 +16,7 @@ const app = async (args) => {
     if (command === "add") {
       const movie = await addMovie({ title: args.title, actor: args.actor });
     } else if (command === "list") {
-      await connection(listMovies);
+      await listMovies();
       // } else if (command === "update") {
       //   const updateObj = {
       //     title: args.title,

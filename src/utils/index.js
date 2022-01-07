@@ -1,5 +1,6 @@
 const fs = require("fs");
 const Movie = require("../models/models");
+const mongoose = require("mongoose");
 const addMovie = async (movieObj) => {
   try {
     const newMovie = new Movie(movieObj);
@@ -10,12 +11,9 @@ const addMovie = async (movieObj) => {
   }
 };
 
-const listMovies = async (collection) => {
+const listMovies = async () => {
   try {
-    const cursor = await collection.find({});
-    const movieArray = await cursor.toArray();
-    await collection.find({}).toArray();
-    console.log(movieArray);
+    console.log(await Movie.find({}));
   } catch (error) {
     console.log(error);
   }
