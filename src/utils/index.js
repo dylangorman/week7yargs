@@ -5,7 +5,7 @@ const addMovie = async (movieObj) => {
   try {
     const newMovie = new Movie(movieObj);
     await newMovie.save();
-    console.log("New Movie: ", newMovie);
+    console.log("New Movie: ", newMovie.title);
   } catch (error) {
     console.log(error);
   }
@@ -18,31 +18,30 @@ const listMovies = async () => {
     console.log(error);
   }
 };
-// const updateMovie = async (collection, updateObj) => {
-//   await collection.updateOne(
-//     { title: updateObj.title },
-//     { Sset: { title: updateObj.updateValue } }
-//   );
-// };
+const updateMovie = async (movieObj) => {
+  const newMovie = await Movie.updateOne(
+    { title: movieObj.title },
+    { title: movieObj.updateTitle },
+    { new: true }
+  );
+  console.log(
+    `The Title: ${movieObj.title}, has been updated to Title: ${movieObj.updateTitle}.`
+  );
+};
 
-// const deleteMovie = (movieArray, filterObj) => {
-//   try {
-//     let newArray = movieArray.filter(
-//       (movie) => movie.title !== filterObj.title
-//     );
-//     const stringyObj = JSON.stringify(newArray);
-//     fs.writeFileSync("./storage.json", stringyObj);
-//     console.log(
-//       "Thank you for your input, this data has now been removed from the list!"
-//     );
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+const deleteMovie = async (movieObj) => {
+  console.log(movieObj);
+  try {
+    await Movie.deleteOne(movieObj);
+    console.log(`Sucessfully deleted ${movieObj.title}`);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 module.exports = {
   addMovie,
   listMovies,
-  // updateMovie,
-  // deleteMovie,
+  updateMovie,
+  deleteMovie,
 };
