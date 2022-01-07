@@ -1,33 +1,31 @@
 const yargs = require("yargs");
-const fs = require("fs");
 const {
   addMovie,
   listMovies,
-  updateMovie,
+  // updateMovie,
   // deleteMovie,
 } = require("./utils/index");
 
-const connection = require("./db/connection");
+const connection = require("./db/connection.js");
 
-const command = process.argv[2];
+const command = yargs.argv._[0];
+console.log(yargs.argv);
 
 const app = async (args) => {
   try {
     if (command === "add") {
-      const movieObj = { title: args.title, actor: args.actor };
-      // console.log("app.js hit");
-      await connection(addMovie, movieObj);
-      // console.log("after connection");
+      const movie = await addMovie({ title: args.title, actor: args.actor });
     } else if (command === "list") {
       await connection(listMovies);
-    } else if (command === "update") {
-      const updateObj = {
-        title: args.title,
-        updateKey: args.updateKey,
-        updateValue: args.updateValue,
-      };
+      // } else if (command === "update") {
+      //   const updateObj = {
+      //     title: args.title,
+      //     updateKey: args.updateKey,
+      //     updateValue: args.updateValue,
+      //   };
+      // }
+      // await connection(updateMovie);
     }
-    await connection(updateMovie);
   } catch (error) {
     console.log(error);
   }

@@ -1,26 +1,31 @@
 const fs = require("fs");
-
-const addMovie = async (collection, movieObj) => {
+const Movie = require("../models/models");
+const addMovie = async (movieObj) => {
   try {
-    await collection.insertOne(movieObj);
-    console.log(`Successfully added ${movieObj.title}.`);
+    const newMovie = new Movie(movieObj);
+    await newMovie.save();
+    console.log("New Movie: ", newMovie);
   } catch (error) {
     console.log(error);
   }
 };
+
 const listMovies = async (collection) => {
   try {
-    const movieArray = await collection.find({}).toArray();
+    const cursor = await collection.find({});
+    const movieArray = await cursor.toArray();
+    await collection.find({}).toArray();
+    console.log(movieArray);
   } catch (error) {
     console.log(error);
   }
 };
-const updateMovie = async (collection, updateObj) => {
-  await collection.updateOne(
-    { title: updateObj.title },
-    { Sset: { title: updateObj.updateValue } }
-  );
-};
+// const updateMovie = async (collection, updateObj) => {
+//   await collection.updateOne(
+//     { title: updateObj.title },
+//     { Sset: { title: updateObj.updateValue } }
+//   );
+// };
 
 // const deleteMovie = (movieArray, filterObj) => {
 //   try {
@@ -40,6 +45,6 @@ const updateMovie = async (collection, updateObj) => {
 module.exports = {
   addMovie,
   listMovies,
-  updateMovie,
+  // updateMovie,
   // deleteMovie,
 };
